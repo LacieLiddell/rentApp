@@ -9,12 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.lacie.rentapp.RoomTest.Member;
+
+import java.util.List;
+
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHolder> {
-    private String [] name, rent, number;
-    private OnItemClickListener listener;
+    private String [] name;
+    private long[] rent;
+    int []number;
+    OnItemClickListener listener;
 
 
-    public MembersAdapter(String[] members,String [] rent, String [] number, OnItemClickListener listener){
+    public MembersAdapter(String[] members, long[] rent, int[] number, OnItemClickListener listener){
         this.name = members;
         this.rent = rent;
         this.number = number;
@@ -22,27 +28,26 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.ViewHold
     }
 
     public interface OnItemClickListener{
-        void onClick(CardView card, int position);
+        void onItemClick(CardView card, int position);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CardView card = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_count, parent, false);
-
+                .inflate(R.layout.member_card, parent, false);
         return new ViewHolder(card);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        CardView cardView = (CardView) holder.cardView;
+        CardView cardView = holder.cardView;
         TextView numberView = cardView.findViewById(R.id.member_number);
         TextView nameView = cardView.findViewById(R.id.member_name);
         TextView partView = cardView.findViewById(R.id.member_part);
-        numberView.setText(number[position]);
+//        numberView.setText(number[position]);
         nameView.setText(name[position]);
-        partView.setText(rent[position]);
+//        partView.setText((int) rent[position]);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
